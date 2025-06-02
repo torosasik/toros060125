@@ -16,6 +16,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Natural_Stone_3_section.webp",
+            "image_mobile": "shopify://shop_images/Natural_Stone_mobile_3_vertical.png",
             "overlay_opacity": 0,
             "image_overlay_color": "#202020",
             "slide_link": "shopify://collections/natural-stone",
