@@ -1234,14 +1234,6 @@
                               </div>
                             </div>
                             <script>
-                              // Auto-calculation function for overage
-                              function autoCalculateOverage() {
-                                const footageInput = document.querySelector('#ovg-calculator-footage');
-                                if (footageInput && footageInput.value && parseFloat(footageInput.value) > 0) {
-                                  calculateOverage();
-                                }
-                              }
-                              
                               document.querySelectorAll('#ovg-overage input[name="properties[OVERAGE]"]').forEach(radio => {
                                 radio.addEventListener('change', function () {
                                   const manualInputFieldOVG = document.querySelector('#ovg-overage #manual-ovg-input');
@@ -1250,28 +1242,8 @@
                                     manualInputFieldOVG.focus();
                                   } else {
                                     manualInputFieldOVG.style.display = 'none';
-                                    // Auto-calculate when non-manual option is selected
-                                    autoCalculateOverage();
                                   }
                                 });
-                              });
-                              
-                              // Auto-calculate when manual input changes
-                              document.addEventListener('input', function(e) {
-                                if (e.target && e.target.id === 'manualInputFieldOVG') {
-                                  // Add a small delay to allow user to finish typing
-                                  clearTimeout(window.manualInputTimer);
-                                  window.manualInputTimer = setTimeout(autoCalculateOverage, 500);
-                                }
-                              });
-                              
-                              // Auto-calculate when square footage input changes
-                              document.addEventListener('input', function(e) {
-                                if (e.target && e.target.id === 'ovg-calculator-footage') {
-                                  // Add a small delay to allow user to finish typing
-                                  clearTimeout(window.footageInputTimer);
-                                  window.footageInputTimer = setTimeout(autoCalculateOverage, 500);
-                                }
                               });
                             </script>
                             <div class="ovg-explanation">
@@ -1429,6 +1401,36 @@
     $("#ovg-calculate").click(function() {
       console.log("Calculate overage.");
       calculateOverage();
+    });
+    
+    // Auto-calculation function for overage
+    function autoCalculateOverage() {
+      const footageInput = $('#ovg-calculator-footage');
+      if (footageInput.length && footageInput.val() && parseFloat(footageInput.val()) > 0) {
+        console.log("Auto-calculating overage...");
+        calculateOverage();
+      }
+    }
+    
+    // Auto-calculate when overage percentage is selected
+    $(document).on('change', '#ovg-overage input[name="properties[OVERAGE]"]', function() {
+      if (this.value !== 'manual') {
+        autoCalculateOverage();
+      }
+    });
+    
+    // Auto-calculate when manual input changes
+    var manualInputTimer;
+    $(document).on('input', '#manualInputFieldOVG', function() {
+      clearTimeout(manualInputTimer);
+      manualInputTimer = setTimeout(autoCalculateOverage, 500);
+    });
+    
+    // Auto-calculate when square footage input changes
+    var footageInputTimer;
+    $(document).on('input', '#ovg-calculator-footage', function() {
+      clearTimeout(footageInputTimer);
+      footageInputTimer = setTimeout(autoCalculateOverage, 500);
     });
     
     $("#squared_size").change(function() {
