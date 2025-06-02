@@ -193,6 +193,7 @@
         "slide_3hKLqk": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/afis_screenshot.jpg",
             "overlay_opacity": 0,
             "image_overlay_color": "#202020",
             "slide_link": "",
