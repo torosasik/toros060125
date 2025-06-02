@@ -1234,6 +1234,14 @@
                               </div>
                             </div>
                             <script>
+                              // Auto-calculation function for overage
+                              function autoCalculateOverage() {
+                                const footageInput = document.querySelector('#ovg-calculator-footage');
+                                if (footageInput && footageInput.value && parseFloat(footageInput.value) > 0) {
+                                  calculateOverage();
+                                }
+                              }
+                              
                               document.querySelectorAll('#ovg-overage input[name="properties[OVERAGE]"]').forEach(radio => {
                                 radio.addEventListener('change', function () {
                                   const manualInputFieldOVG = document.querySelector('#ovg-overage #manual-ovg-input');
@@ -1242,14 +1250,34 @@
                                     manualInputFieldOVG.focus();
                                   } else {
                                     manualInputFieldOVG.style.display = 'none';
+                                    // Auto-calculate when non-manual option is selected
+                                    autoCalculateOverage();
                                   }
                                 });
+                              });
+                              
+                              // Auto-calculate when manual input changes
+                              document.addEventListener('input', function(e) {
+                                if (e.target && e.target.id === 'manualInputFieldOVG') {
+                                  // Add a small delay to allow user to finish typing
+                                  clearTimeout(window.manualInputTimer);
+                                  window.manualInputTimer = setTimeout(autoCalculateOverage, 500);
+                                }
+                              });
+                              
+                              // Auto-calculate when square footage input changes
+                              document.addEventListener('input', function(e) {
+                                if (e.target && e.target.id === 'ovg-calculator-footage') {
+                                  // Add a small delay to allow user to finish typing
+                                  clearTimeout(window.footageInputTimer);
+                                  window.footageInputTimer = setTimeout(autoCalculateOverage, 500);
+                                }
                               });
                             </script>
                             <div class="ovg-explanation">
                               10% is the recommended minimum to cover cuts and future repairs
                             </div>
-                            <a href="#" class="ovg-calculate-btn" id="ovg-calculate">Calculate</a>
+                            <a href="#" class="ovg-calculate-btn" id="ovg-calculate" style="display: none;">Calculate</a>
                           </div>
 
                           <div class="ovg-results footer_outcome">
