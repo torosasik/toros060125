@@ -816,7 +816,7 @@
                     </div>
                   {% endif %}
 
-                  {% if product.tags contains "overage-popup-v2" %}
+                  {% if product.tags contains "overage-popup-v3" %}
                   <style>
                     #ovg-popup {
                       position: fixed;
@@ -1850,7 +1850,7 @@
       }, 200);
     }
 
-    {% if product.tags contains "overage-popup-v2" %}
+    {% if product.tags contains "overage-popup-v3" %}
       if ($('#x-atc-button-{{ section.id }}').length) {
         var $button = $('#x-atc-button-{{ section.id }}');
         var $overlay = $('<div id="overage-submit"></div>');
@@ -2383,7 +2383,7 @@
                         data-type: 'add-to-cart-form',
                         x-ref: 'product_form'
                       -%}
-                      {% if product.tags contains "Tile_calculator" or product.tags contains "overage-popup-v2" %}
+                      {% if product.tags contains "Tile_calculator" or product.tags contains "overage-popup-v3" %}
                       {% if product.metafields.measuringunitsatd.measuring_units_atd == "Box" %}
                         <input id="property-qty" type="hidden" name="properties[Boxes]" value="1">                        
                         <input id="property-pieces" type="hidden" name="properties[Pieces]" value="{{ tiles_per_box }}">
