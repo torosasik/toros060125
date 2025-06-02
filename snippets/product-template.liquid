@@ -1198,7 +1198,7 @@
                                 Custom percentage for specific needs
                               </div>
                               <div class="ovg-manual-input-wrapper" id="ovg-manual-input-wrapper">
-                                <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" placeholder="0" step="1" min="0">
+                                <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" placeholder="" step="1" min="0">
                                 <span class="ovg-percent-symbol">%</span>
                               </div>
                             </div>
@@ -1407,14 +1407,23 @@
     
     // Auto-calculate when overage percentage is selected
     $(document).on('change', '#ovg-overage input[name="properties[OVERAGE]"]', function() {
+      console.log('Overage selection changed to:', this.value);
       if (this.value !== 'manual') {
         autoCalculateOverage();
+      } else {
+        // If manual is selected and there's already a value in manual input, calculate
+        const manualValue = $('#manualInputFieldOVG').val();
+        if (manualValue && parseFloat(manualValue) >= 0) {
+          autoCalculateOverage();
+        }
       }
     });
     
     // Auto-calculate when manual input changes
-    $(document).on('input', '#manualInputFieldOVG', function() {
-      if ($(this).val() && parseFloat($(this).val()) >= 0) {
+    $(document).on('input change', '#manualInputFieldOVG', function() {
+      console.log('Manual input changed to:', $(this).val());
+      const inputValue = $(this).val();
+      if (inputValue !== '' && parseFloat(inputValue) >= 0) {
         autoCalculateOverage();
       }
     });
@@ -1654,6 +1663,7 @@
       
       console.log('Selected overage:', selectedOverage);
       console.log('Manual overage input:', manualOverage);
+      console.log('Calculator footage:', calculator_footage);
       
       if (selectedOverage === 'manual') {
         // Make sure we're parsing the manual input correctly
@@ -1664,6 +1674,10 @@
       } else {
         overage = parseFloat(selectedOverage);
       }
+      
+      // Calculate overage amount
+      var overage_amount = calculator_footage * overage;
+      var overage_amount_rounded = parseFloat(overage_amount.toFixed(2));
       
       // Calculate solution with overage
       var solution = calculator_footage * (1 + overage);
@@ -1700,17 +1714,30 @@
       var total_coverage = output_boxes * box_dimensions;
       var total_coverage_rounded = parseFloat(total_coverage.toFixed(2));
       
-      // Update outputs
+      // Update original hidden outputs (for functionality)
       $('#ovg-boxes').val(output_boxes);
-      $('#ovg-solution').val(solution_rounded);
+      $('#ovg-solution').val(overage_amount_rounded);
       $('#ovg-total_cost').val('$' + rounded_total_avg.toFixed(2));
       $('#ovg-boxes_needed').text(output_boxes);
-      $('#ovg-total_coverage').val(total_coverage_rounded);
-      $('#ovg-total_square').text(total_coverage_rounded);
-      $('#squared_size').val(total_coverage_rounded);
+      $('#ovg-total_coverage').val(solution_rounded);
+      $('#ovg-total_square').text(solution_rounded);
+      $('#squared_size').val(solution_rounded);
       $('[name="quantity"]').attr('value', output_boxes).val(output_boxes);
       $('#quantity_look_alike').val(output_boxes);
       $('#product_page_total').text('$' + rounded_total_avg.toFixed(2));
+      
+      // Update custom display elements
+      $('#ovg-overage-display').text(overage_amount_rounded + ' Sq. Ft.');
+      $('#ovg-total-display').text(solution_rounded + ' Sq. Ft.');
+      $('#ovg-boxes-display').text(output_boxes);
+      $('#ovg-price-display').text('$' + rounded_total_avg.toFixed(2));
+      
+      console.log('Updated custom display:', {
+        overage: overage_amount_rounded,
+        total: solution_rounded,
+        boxes: output_boxes,
+        price: '$' + rounded_total_avg.toFixed(2)
+      });
       
       // Update property fields
       updatePropertyFields(output_boxes, total_coverage_rounded, output_boxes * tiles_per_box);
