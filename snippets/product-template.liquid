@@ -1978,7 +1978,38 @@
         // Auto-add to cart if we have a calculated amount
         if (output_boxes > 0) {
           console.log("Auto-adding to cart with", output_boxes, "boxes");
-          $('#x-atc-button-{{ section.id }}').click();
+          // Use a timeout to ensure popup is fully closed before adding to cart
+          setTimeout(function() {
+            // Update the main quantity input
+            $('[name="quantity"]').val(output_boxes);
+            $('#quantity_look_alike').val(output_boxes);
+            
+            // Trigger the add to cart event through the form
+            const form = document.querySelector('form[action*="/cart/add"]');
+            if (form) {
+              const formData = new FormData(form);
+              formData.set('quantity', output_boxes);
+              
+              // Use fetch to add to cart instead of triggering button click
+              fetch('/cart/add.js', {
+                method: 'POST',
+                body: formData
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log('Item added to cart:', data);
+                // Trigger cart update events for Alpine.js
+                document.dispatchEvent(new CustomEvent('eurus:cart:items-changed'));
+                // Open the cart drawer if Alpine store exists
+                if (window.Alpine && Alpine.store('xMiniCart')) {
+                  Alpine.store('xMiniCart').openCart();
+                }
+              })
+              .catch(error => {
+                console.error('Error adding to cart:', error);
+              });
+            }
+          }, 300);
         }
       }
 
