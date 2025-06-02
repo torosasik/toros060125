@@ -1235,13 +1235,13 @@
                             <!-- Information text for different overage options -->
                             <div class="ovg-info-section">
                               <div class="ovg-info-text" id="ovg-info-10" style="display: block;">
-                                Recommended minimum for projects
+                                Recommended minimum
                               </div>
                               <div class="ovg-info-text" id="ovg-info-15" style="display: none;">
                                 Extra coverage for complex cuts
                               </div>
                               <div class="ovg-info-text" id="ovg-info-manual" style="display: none;">
-                                Custom percentage for your needs
+                                Custom percentage
                               </div>
                               <div class="ovg-info-text" id="ovg-info-no" style="display: none;">
                                 Not recommended - no extra material
@@ -1536,20 +1536,9 @@
                   return;
               }
             {% endif %}
-            
-            // Just close the popup - no cart operations
             $('#ovg-popup').removeClass('ovg-popup-open'); 
             $(this).parents('html').removeClass('overflow-pop-hidden');
-            
-            // Show simple informational message
-            const notification = $('<div class="overage-notification" style="position: fixed; top: 20px; right: 20px; background: #0066CC; color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">✓ You need ' + output_boxes + ' boxes with overage. Use main Add to Cart button.</div>');
-            $('body').append(notification);
-            
-            setTimeout(function() {
-              notification.fadeOut(300, function() {
-                $(this).remove();
-              });
-            }, 6000);
+            $('#x-atc-button-{{ section.id }}').click();
         }
     }); 
 
@@ -1980,50 +1969,26 @@
         $button.parent().css('position', 'relative').append($overlay);
       }
 
-      // Function to close popup and auto-add to cart if calculation was done
-      function closeOveragePopup() {
-        console.log("Closing OVG pop-up.");
-        $("#ovg-popup").removeClass("ovg-popup-open");
-        $(document.body).removeClass('overflow-pop-hidden');
-        // No automatic cart operations - let user manually add to cart
-      }
-
       $("#ovg-popup").click(function(event) {
         var container = $("#ovg-popup-content");
         if (!container.is(event.target) && !container.has(event.target).length) {
-          closeOveragePopup();
+          console.log("Closing OVG pop-up.");
+          $("#ovg-popup").removeClass("ovg-popup-open");
+          $(this).parents('html').removeClass('overflow-pop-hidden');
         }
       });
 
       $("#ovg-popup-close").click(function(event) {
-        closeOveragePopup();
+        $("#ovg-popup").removeClass("ovg-popup-open");
+        $(this).parents('html').removeClass('overflow-pop-hidden');
       });
 
       $('#overage-submit').click(function() {
         if (!overageSet) {
           $(this).parents('html').addClass('overflow-pop-hidden');
           $("#ovg-popup").addClass("ovg-popup-open");
-          
-          // Auto-calculate with 10% when popup opens if we have square footage
-          setTimeout(function() {
-            autoCalculateOverage();
-          }, 100);
         } else {
           $('#x-atc-button-{{ section.id }}').click();
-        }
-      });
-      
-      // Auto-calculate when popup opens with existing square footage
-      $(document).on('transitionend', '#ovg-popup', function() {
-        if ($(this).hasClass('ovg-popup-open')) {
-          setTimeout(function() {
-            // Check if we have square footage from the main calculator
-            const mainFootage = $('#calculator-footage').val() || $('#squared_size').val();
-            if (mainFootage && parseFloat(mainFootage) > 0) {
-              $('#ovg-calculator-footage').val(mainFootage);
-              autoCalculateOverage();
-            }
-          }, 200);
         }
       });
     {% endif %}
