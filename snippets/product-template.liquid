@@ -1969,26 +1969,55 @@
         $button.parent().css('position', 'relative').append($overlay);
       }
 
+      // Function to close popup and auto-add to cart if calculation was done
+      function closeOveragePopup() {
+        console.log("Closing OVG pop-up. Output boxes:", output_boxes);
+        $("#ovg-popup").removeClass("ovg-popup-open");
+        $(document.body).removeClass('overflow-pop-hidden');
+        
+        // Auto-add to cart if we have a calculated amount
+        if (output_boxes > 0) {
+          console.log("Auto-adding to cart with", output_boxes, "boxes");
+          $('#x-atc-button-{{ section.id }}').click();
+        }
+      }
+
       $("#ovg-popup").click(function(event) {
         var container = $("#ovg-popup-content");
         if (!container.is(event.target) && !container.has(event.target).length) {
-          console.log("Closing OVG pop-up.");
-          $("#ovg-popup").removeClass("ovg-popup-open");
-          $(this).parents('html').removeClass('overflow-pop-hidden');
+          closeOveragePopup();
         }
       });
 
       $("#ovg-popup-close").click(function(event) {
-        $("#ovg-popup").removeClass("ovg-popup-open");
-        $(this).parents('html').removeClass('overflow-pop-hidden');
+        closeOveragePopup();
       });
 
       $('#overage-submit').click(function() {
         if (!overageSet) {
           $(this).parents('html').addClass('overflow-pop-hidden');
           $("#ovg-popup").addClass("ovg-popup-open");
+          
+          // Auto-calculate with 10% when popup opens if we have square footage
+          setTimeout(function() {
+            autoCalculateOverage();
+          }, 100);
         } else {
           $('#x-atc-button-{{ section.id }}').click();
+        }
+      });
+      
+      // Auto-calculate when popup opens with existing square footage
+      $(document).on('transitionend', '#ovg-popup', function() {
+        if ($(this).hasClass('ovg-popup-open')) {
+          setTimeout(function() {
+            // Check if we have square footage from the main calculator
+            const mainFootage = $('#calculator-footage').val() || $('#squared_size').val();
+            if (mainFootage && parseFloat(mainFootage) > 0) {
+              $('#ovg-calculator-footage').val(mainFootage);
+              autoCalculateOverage();
+            }
+          }, 200);
         }
       });
     {% endif %}
