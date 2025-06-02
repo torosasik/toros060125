@@ -844,6 +844,7 @@
                       border-radius: 16px;
                       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
                       margin: 0 auto;
+                      padding-bottom: 0;
                     }
                     #ovg-popup.ovg-popup-open {
                       display: flex;
@@ -888,7 +889,7 @@
                         margin: 0 0 8px 0;
                     }
                     .ovg-header .section-intro p {
-                        font-size: 14px;
+                        font-size: 16px;
                         color: rgba(255, 255, 255, 0.9);
                         margin: 0;
                         font-weight: 400;
@@ -896,18 +897,18 @@
                     
                     /* Content Section */
                     .ovg-content {
-                        padding: 24px 20px 0;
+                        padding: 20px 20px 0;
                     }
                     
                     /* Input Section */
                     .ovg-input-section {
-                        margin-bottom: 28px;
+                        margin-bottom: 16px;
                         text-align: center;
                     }
                     .ovg-input-section .input-wrapper {
                         display: flex;
                         justify-content: center;
-                        margin-bottom: 8px;
+                        margin-bottom: 4px;
                     }
                     .ovg-input-section .input-box {
                         position: relative;
@@ -917,25 +918,26 @@
                     .ovg-input-section .input-box input {
                         width: 100%;
                         text-align: center;
-                        border: 2px solid #e5e7eb;
+                        border: none;
                         border-radius: 12px;
                         padding: 16px 12px;
                         font-size: 24px;
                         font-weight: 600;
                         background: #f9fafb;
                         outline: none;
-                        transition: border-color 0.2s;
+                        transition: background-color 0.2s;
                         color: #374151;
                     }
                     .ovg-input-section .input-box input:focus {
-                        border-color: #5181bc;
                         background: #fff;
+                        box-shadow: 0 0 0 2px #5181bc;
                     }
                     .ovg-input-section .input-label {
                         display: block;
                         font-size: 16px;
                         color: #6b7280;
-                        margin-top: 8px;
+                        margin-top: 6px;
+                        margin-bottom: 4px;
                         font-weight: 500;
                     }
                     
@@ -980,10 +982,20 @@
                         transition: all 0.2s;
                         min-height: 50px;
                     }
-                    #ovg-overage-selectors input[type="radio"]:checked + * {
+                    #ovg-overage-selectors input[type="radio"]:checked + span {
                         background: #5181bc;
                         color: #fff;
                         border-color: #5181bc;
+                    }
+                    #ovg-overage-selectors input[type="radio"]:checked + span {
+                        background: #5181bc !important;
+                        color: #fff !important;
+                        border-color: #5181bc !important;
+                    }
+                    #ovg-overage-selectors label:has(input[type="radio"]:checked) {
+                        background: #5181bc !important;
+                        color: #fff !important;
+                        border-color: #5181bc !important;
                     }
                     #ovg-overage-selectors label:hover {
                         transform: translateY(-1px);
@@ -1103,19 +1115,22 @@
                         background: #5181bc;
                         color: #fff;
                         border: none;
-                        border-radius: 0 0 16px 16px;
-                        padding: 18px 20px;
+                        border-radius: 12px;
+                        padding: 16px 20px;
                         font-size: 16px;
                         font-weight: bold;
                         cursor: pointer;
-                        transition: background-color 0.2s;
-                        width: 100%;
-                        margin: 0;
+                        transition: all 0.2s;
+                        width: calc(100% - 40px);
+                        margin: 20px 20px 20px 20px;
                         position: relative;
                         bottom: 0;
+                        box-shadow: 0 2px 8px rgba(81, 129, 188, 0.3);
                     }
                     .ovg-add-to-cart:hover {
                         background: #3d5a8c;
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(81, 129, 188, 0.4);
                     }
                     
                     /* Override default styles */
