@@ -29,7 +29,6 @@
         },
         "description": {
           "type": "description",
-          "disabled": true,
           "settings": {
             "read_more_label": "Read more",
             "full_width": true,
@@ -49,7 +48,7 @@
         "description"
       ],
       "custom_css": [
-        ".tile-description {width: 1244px; max-height: 700px; overflow-y: auto; font-family: 'Segoe UI', sans-serif; font-size: 17px; color: #333; padding: 20px; text-align: left; line-height: 1.6; box-sizing: border-box;}",
+        ".tile-description {width: 1244px; max-height: 700px; overflow-y: auto; font-family: \"Segoe UI\", sans-serif; font-size: 17px; color: #333; padding: 20px; text-align: left; line-height: 1.6; box-sizing: border-box;}",
         ".tile-description h3 {margin-top: 20px; font-size: 20px; color: #111;}",
         ".tile-description ul {padding-left: 20px; margin-top: 10px; margin-bottom: 20px;}",
         ".tile-description ul li {margin-bottom: 8px;}"
