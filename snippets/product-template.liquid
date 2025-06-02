@@ -1035,6 +1035,23 @@
                         color: #374151;
                     }
                     
+                    /* Info Text Section */
+                    .ovg-info-section {
+                        text-align: center;
+                        margin: 16px 0 8px 0;
+                    }
+                    .ovg-info-text {
+                        color: #5181bc;
+                        font-style: italic;
+                        font-size: 14px;
+                        margin: 0;
+                        min-height: 20px;
+                        line-height: 1.4;
+                    }
+                    #ovg-info-no {
+                        color: #dc2626;
+                    }
+                    
                     /* Results Section */
                     .ovg-results {
                         background: #fff;
@@ -1193,10 +1210,23 @@
                               </div>
                             </div>
                             
-                            <div class="ovg-manual-section">
-                              <div class="ovg-custom-text" id="ovg-custom-text">
+                            <!-- Information text for different overage options -->
+                            <div class="ovg-info-section">
+                              <div class="ovg-info-text" id="ovg-info-10" style="display: block;">
+                                Recommended minimum for most projects
+                              </div>
+                              <div class="ovg-info-text" id="ovg-info-15" style="display: none;">
+                                Extra coverage for complex layouts and cuts
+                              </div>
+                              <div class="ovg-info-text" id="ovg-info-manual" style="display: none;">
                                 Custom percentage for specific needs
                               </div>
+                              <div class="ovg-info-text" id="ovg-info-no" style="display: none;">
+                                Not recommended - no extra material for cuts
+                              </div>
+                            </div>
+                            
+                            <div class="ovg-manual-section">
                               <div class="ovg-manual-input-wrapper" id="ovg-manual-input-wrapper">
                                 <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" placeholder="" step="1" min="0">
                                 <span class="ovg-percent-symbol">%</span>
@@ -1206,16 +1236,25 @@
                             <script>
                               document.querySelectorAll('#ovg-overage input[name="properties[OVERAGE]"]').forEach(radio => {
                                 radio.addEventListener('change', function () {
-                                  const customText = document.querySelector('#ovg-custom-text');
                                   const manualWrapper = document.querySelector('#ovg-manual-input-wrapper');
                                   
+                                  // Hide all info texts first
+                                  document.querySelectorAll('.ovg-info-text').forEach(text => text.style.display = 'none');
+                                  
                                   if (this.value === 'manual') {
-                                    customText.classList.add('show');
                                     manualWrapper.classList.add('show');
+                                    document.querySelector('#ovg-info-manual').style.display = 'block';
                                     document.querySelector('#manualInputFieldOVG').focus();
                                   } else {
-                                    customText.classList.remove('show');
                                     manualWrapper.classList.remove('show');
+                                    // Show appropriate info text
+                                    if (this.value === '0.10') {
+                                      document.querySelector('#ovg-info-10').style.display = 'block';
+                                    } else if (this.value === '0.15') {
+                                      document.querySelector('#ovg-info-15').style.display = 'block';
+                                    } else if (this.value === 'no_overage') {
+                                      document.querySelector('#ovg-info-no').style.display = 'block';
+                                    }
                                   }
                                 });
                               });
@@ -1727,8 +1766,8 @@
       $('#product_page_total').text('$' + rounded_total_avg.toFixed(2));
       
       // Update custom display elements
-      $('#ovg-overage-display').text(overage_amount_rounded + ' Sq. Ft.');
-      $('#ovg-total-display').text(solution_rounded + ' Sq. Ft.');
+      $('#ovg-overage-display').text(overage_amount_rounded.toFixed(2) + ' Sq. Ft.');
+      $('#ovg-total-display').text(solution_rounded.toFixed(2) + ' Sq. Ft.');
       $('#ovg-boxes-display').text(output_boxes);
       $('#ovg-price-display').text('$' + rounded_total_avg.toFixed(2));
       
