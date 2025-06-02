@@ -585,7 +585,7 @@
         "color_line": "#e3e3e3",
         "show_item_count": true,
         "columns_desktop": 4,
-        "columns_mobile": "1",
+        "columns_mobile": "2",
         "slider_button_color": "#242424",
         "slider_button_hover_color": "#000000",
         "slider_button_hover_text_color": "#ffffff",
