@@ -526,6 +526,13 @@
     "otsb_collection_list_2_D3J3XG": {
       "type": "otsb-collection-list-2",
       "blocks": {
+        "featured_collection_qCFFUW": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "porcelain",
+            "custom_name_collection": "Porcelain Tiles"
+          }
+        },
         "featured_collection_dEXmTC": {
           "type": "featured_collection",
           "settings": {
@@ -546,20 +553,13 @@
             "collection": "accessories-wall-plate-switch-plate",
             "custom_name_collection": "Switch Plates"
           }
-        },
-        "featured_collection_qCFFUW": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "porcelain",
-            "custom_name_collection": "Porcelain Tiles"
-          }
         }
       },
       "block_order": [
+        "featured_collection_qCFFUW",
         "featured_collection_dEXmTC",
         "featured_collection_gjdGdR",
-        "featured_collection_abtLVN",
-        "featured_collection_qCFFUW"
+        "featured_collection_abtLVN"
       ],
       "name": "OT: Collection List #2",
       "settings": {
