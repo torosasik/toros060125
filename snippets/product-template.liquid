@@ -1536,9 +1536,24 @@
                   return;
               }
             {% endif %}
+            
+            // Update the main form quantity
+            $('[name="quantity"]').val(output_boxes);
+            $('#quantity_look_alike').val(output_boxes);
+            
+            // Close the popup
             $('#ovg-popup').removeClass('ovg-popup-open'); 
             $(this).parents('html').removeClass('overflow-pop-hidden');
-            $('#x-atc-button-{{ section.id }}').click();
+            
+            // Show notification that quantity was updated
+            const notification = $('<div class="overage-notification" style="position: fixed; top: 20px; right: 20px; background: #0066CC; color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">✓ Quantity updated to ' + output_boxes + ' boxes. Click Add to Cart below.</div>');
+            $('body').append(notification);
+            
+            setTimeout(function() {
+              notification.fadeOut(300, function() {
+                $(this).remove();
+              });
+            }, 5000);
         }
     }); 
 
@@ -1971,30 +1986,10 @@
 
       // Function to close popup and auto-add to cart if calculation was done
       function closeOveragePopup() {
-        console.log("Closing OVG pop-up. Output boxes:", output_boxes);
+        console.log("Closing OVG pop-up.");
         $("#ovg-popup").removeClass("ovg-popup-open");
         $(document.body).removeClass('overflow-pop-hidden');
-        
-        // Auto-update quantity if we have a calculated amount
-        if (output_boxes > 0) {
-          console.log("Auto-updating quantity to", output_boxes, "boxes");
-          // Update the main quantity input
-          $('[name="quantity"]').val(output_boxes);
-          $('#quantity_look_alike').val(output_boxes);
-          
-          // Trigger quantity change events to update displays
-          $('#quantity_look_alike').trigger('change');
-          
-          // Show a brief notification that overage was applied
-          const notification = $('<div class="overage-notification" style="position: fixed; top: 20px; right: 20px; background: #0066CC; color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">✓ Overage applied (' + output_boxes + ' boxes)</div>');
-          $('body').append(notification);
-          
-          setTimeout(function() {
-            notification.fadeOut(300, function() {
-              $(this).remove();
-            });
-          }, 3000);
-        }
+        // No automatic cart operations - let user manually add to cart
       }
 
       $("#ovg-popup").click(function(event) {
