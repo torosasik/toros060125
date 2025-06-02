@@ -529,8 +529,8 @@
         "featured_collection_dEXmTC": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
-            "custom_name_collection": ""
+            "collection": "marble",
+            "custom_name_collection": "Marble"
           }
         },
         "featured_collection_gjdGdR": {
