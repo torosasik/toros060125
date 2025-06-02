@@ -192,7 +192,6 @@
         },
         "slide_3hKLqk": {
           "type": "slide",
-          "disabled": true,
           "settings": {
             "overlay_opacity": 0,
             "image_overlay_color": "#202020",
