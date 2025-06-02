@@ -1537,23 +1537,19 @@
               }
             {% endif %}
             
-            // Update the main form quantity
-            $('[name="quantity"]').val(output_boxes);
-            $('#quantity_look_alike').val(output_boxes);
-            
-            // Close the popup
+            // Just close the popup - no cart operations
             $('#ovg-popup').removeClass('ovg-popup-open'); 
             $(this).parents('html').removeClass('overflow-pop-hidden');
             
-            // Show notification that quantity was updated
-            const notification = $('<div class="overage-notification" style="position: fixed; top: 20px; right: 20px; background: #0066CC; color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">✓ Quantity updated to ' + output_boxes + ' boxes. Click Add to Cart below.</div>');
+            // Show simple informational message
+            const notification = $('<div class="overage-notification" style="position: fixed; top: 20px; right: 20px; background: #0066CC; color: white; padding: 12px 20px; border-radius: 8px; z-index: 10000; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">✓ You need ' + output_boxes + ' boxes with overage. Use main Add to Cart button.</div>');
             $('body').append(notification);
             
             setTimeout(function() {
               notification.fadeOut(300, function() {
                 $(this).remove();
               });
-            }, 5000);
+            }, 6000);
         }
     }); 
 
