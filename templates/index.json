@@ -536,22 +536,22 @@
         "featured_collection_gjdGdR": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
-            "custom_name_collection": ""
+            "collection": "travertine",
+            "custom_name_collection": "Travertine"
           }
         },
         "featured_collection_abtLVN": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
-            "custom_name_collection": ""
+            "collection": "accessories-wall-plate-switch-plate",
+            "custom_name_collection": "Switch Plate"
           }
         },
         "featured_collection_qCFFUW": {
           "type": "featured_collection",
           "settings": {
-            "collection": "",
-            "custom_name_collection": ""
+            "collection": "porcelain",
+            "custom_name_collection": "Porcelain Tiles"
           }
         }
       },
@@ -561,7 +561,6 @@
         "featured_collection_abtLVN",
         "featured_collection_qCFFUW"
       ],
-      "disabled": true,
       "name": "OT: Collection List #2",
       "settings": {
         "heading": "Collection List",
