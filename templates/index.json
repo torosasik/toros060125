@@ -57,50 +57,6 @@
             "secondary_button_text": ""
           }
         },
-        "slide_Cp9VXa": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/6_BASALT_FLOW.jpg",
-            "overlay_opacity": 0,
-            "image_overlay_color": "#202020",
-            "slide_link": "",
-            "open_new_window_slide": false,
-            "subheading": "",
-            "heading": "",
-            "heading_size": 170,
-            "heading_tag": "h2",
-            "text": "",
-            "button_type": "rounded_corners",
-            "button_color_mobile": "color",
-            "button_animation": "underline",
-            "custom_icon_button": "",
-            "button_label_1": "Onyx",
-            "button_link_1": "shopify://collections/onyx",
-            "open_new_window_button": false,
-            "button_primary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "open_new_window_button_2": false,
-            "button_primary_2": true,
-            "content_alignment": "bottom-center",
-            "custom_horizontal": 15,
-            "custom_vertical": 80,
-            "alignment": "center",
-            "mobile_custom_position": false,
-            "custom_horizontal_mobile": 50,
-            "custom_vertical_mobile": 50,
-            "alignment_mobile": "center",
-            "heading_color": "#ffffff",
-            "color_text": "#ffffff",
-            "color_text_link": "#ffffff",
-            "color_button": "#1c4170",
-            "color_text_button": "#ffffff",
-            "color_button_hover": "#ffffff",
-            "color_text_button_hover": "#1c4170",
-            "color_button_secondary": "",
-            "secondary_button_text": ""
-          }
-        },
         "slide_r4KjNE": {
           "type": "slide",
           "settings": {
@@ -237,7 +193,6 @@
       },
       "block_order": [
         "slide_kHLmMh",
-        "slide_Cp9VXa",
         "slide_r4KjNE",
         "slide_EepcyN",
         "slide_3hKLqk"
