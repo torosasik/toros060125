@@ -1987,6 +1987,19 @@
         if (!overageSet) {
           $(this).parents('html').addClass('overflow-pop-hidden');
           $("#ovg-popup").addClass("ovg-popup-open");
+          
+          // Auto-populate with current square footage and calculate with 10% overage
+          setTimeout(function() {
+            const currentFootage = $('#squared_size').val() || $('#calculator-footage').val() || '';
+            if (currentFootage && parseFloat(currentFootage) > 0) {
+              $('#ovg-calculator-footage').val(currentFootage);
+              // Trigger calculation with the default 10% selection
+              if (typeof calculateOverage === 'function') {
+                calculateOverage();
+              }
+            }
+          }, 100);
+          
         } else {
           $('#x-atc-button-{{ section.id }}').click();
         }
