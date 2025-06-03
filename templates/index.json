@@ -796,7 +796,6 @@
         },
         "image_NAHD8c": {
           "type": "image",
-          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Quality_Assurance_3_webp_format.webp",
             "url": ""
