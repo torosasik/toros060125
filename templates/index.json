@@ -182,10 +182,10 @@
             "heading_color": "#ffffff",
             "color_text": "#ffffff",
             "color_text_link": "#ffffff",
-            "color_button": "#f5f0e7",
-            "color_text_button": "#2e1c13",
-            "color_button_hover": "#9d7e67",
-            "color_text_button_hover": "#ffffff",
+            "color_button": "#1c4170",
+            "color_text_button": "#ffffff",
+            "color_button_hover": "#ffffff",
+            "color_text_button_hover": "#1c4170",
             "color_button_secondary": "",
             "secondary_button_text": ""
           }
