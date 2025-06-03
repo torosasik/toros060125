@@ -1250,7 +1250,7 @@
                             
                             <div class="ovg-manual-section">
                               <div class="ovg-manual-input-wrapper" id="ovg-manual-input-wrapper">
-                                <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" placeholder="" step="1" min="0">
+                                <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" value="20" step="1" min="0">
                                 <span class="ovg-percent-symbol">%</span>
                               </div>
                             </div>
@@ -1266,7 +1266,13 @@
                                   if (this.value === 'manual') {
                                     manualWrapper.classList.add('show');
                                     document.querySelector('#ovg-info-manual').style.display = 'block';
-                                    document.querySelector('#manualInputFieldOVG').focus();
+                                    // Set default value and focus
+                                    const manualField = document.querySelector('#manualInputFieldOVG');
+                                    if (!manualField.value || manualField.value === '') {
+                                      manualField.value = '20';
+                                    }
+                                    manualField.focus();
+                                    manualField.select(); // Select the text so user can easily replace it
                                   } else {
                                     manualWrapper.classList.remove('show');
                                     // Show appropriate info text
