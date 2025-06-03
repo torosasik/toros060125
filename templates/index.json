@@ -159,7 +159,7 @@
             "heading_size": 170,
             "heading_tag": "h2",
             "text": "<p>Discover premium porcelain, ceramic, and glass tile collections.</p>",
-            "button_type": "square",
+            "button_type": "rounded_corners",
             "button_color_mobile": "color",
             "button_animation": "underline",
             "custom_icon_button": "",
