@@ -189,13 +189,58 @@
             "color_button_secondary": "",
             "secondary_button_text": ""
           }
+        },
+        "slide_JKjAB4": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/afis_screenshot.jpg",
+            "overlay_opacity": 0,
+            "image_overlay_color": "#202020",
+            "slide_link": "",
+            "open_new_window_slide": false,
+            "subheading": "Content Slide",
+            "heading": "Slide Title",
+            "heading_size": 170,
+            "heading_tag": "h2",
+            "text": "<p>Tell your brand's story through image</p>",
+            "button_type": "rounded_corners",
+            "button_color_mobile": "color",
+            "button_animation": "underline",
+            "custom_icon_button": "",
+            "button_label_1": "Show me the deals!",
+            "button_link_1": "shopify://collections/clearance-items",
+            "open_new_window_button": false,
+            "button_primary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "open_new_window_button_2": false,
+            "button_primary_2": false,
+            "content_alignment": "bottom-center",
+            "custom_horizontal": 15,
+            "custom_vertical": 80,
+            "alignment": "center",
+            "mobile_custom_position": false,
+            "custom_horizontal_mobile": 50,
+            "custom_vertical_mobile": 50,
+            "alignment_mobile": "center",
+            "heading_color": "#ffffff",
+            "color_text": "#ffffff",
+            "color_text_link": "#ffffff",
+            "color_button": "#1c4170",
+            "color_text_button": "#10d7e2",
+            "color_button_hover": "#10d7e2",
+            "color_text_button_hover": "#1c4170",
+            "color_button_secondary": "",
+            "secondary_button_text": ""
+          }
         }
       },
       "block_order": [
         "slide_kHLmMh",
         "slide_r4KjNE",
         "slide_EepcyN",
-        "slide_3hKLqk"
+        "slide_3hKLqk",
+        "slide_JKjAB4"
       ],
       "custom_css": [
         "[class*=\"content-text-slide_\"] h2 em,[class*=\"content-text-slide_\"] p {color: #fff !important; font-style: italic !important; font-weight: bold !important; text-shadow: -0.5px -0.5px 0 #1c4070, 0.5px -0.5px 0 #1c4070, -0.5px 0.5px 0 #1c4070, 0.5px 0.5px 0 #1c4070 !important; -webkit-text-stroke: 0.3px #1c4070 !important;}",
