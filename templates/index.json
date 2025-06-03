@@ -200,7 +200,7 @@
       "custom_css": [],
       "settings": {
         "show_hero": true,
-        "auto_play": true,
+        "auto_play": false,
         "change_slides_speed": 5,
         "show_arrow": true,
         "slider_button_color": "#525151",
