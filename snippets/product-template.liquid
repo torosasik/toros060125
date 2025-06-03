@@ -2511,7 +2511,131 @@
                   <style>
                     .container-wrap {
                         display: flex;
-{% endif %}
+                        flex-direction: column;
+                      gap: 15px;
+                    }
+
+                    .cust__tab-container {
+                        display: flex;
+                        overflow: auto;
+                        width: 100%;
+                        /* gap: 5px; */
+                      justify-content: space-between;
+                        -ms-overflow-style: none;  /* IE and Edge */
+                        scrollbar-width: none;  /* Firefox */
+                    }
+
+                    .cust__tab-container::-webkit-scrollbar {
+                        display: none;  /* Chrome, Safari, and Opera */
+                    }
+
+                    .cust__tab {
+                        padding: 10px 20px;
+                        cursor: pointer;
+                        border-bottom: none;
+                        font-weight: 600;
+                        background: none;
+                        border: none;
+                        border-bottom: 2px solid transparent;
+                        background-color: #d2d9e2;
+                        color: #000;
+                        border-radius: 5px;
+                    }
+
+                    .cust__tab p {
+                        margin: 0px;
+                    }
+
+                    .cust__tab.active {
+                        background-color: #204a80;
+                        color: #fff;
+                    }
+
+                    .cust__tab-content {
+                        display: none;
+                        margin-top: 10px;
+                    }
+
+                    .cust__tab-content.active {
+                        display: block;
+                    }
+
+                    @media(max-width: 768px) {
+                      .cust__tab {
+                        padding: 10px 10px;
+                      }
+                    }
+                  </style>
+
+                  <div class="w-full h-auto block-{{ block.id }} container-wrap tabbed-info" {{ block.shopify_attributes }}>
+                    <div class="cust__tab-container">
+                      {% for block_inner in block.settings.block_list %}
+                        <button class="cust__tab {% if forloop.first %} active {% endif %}" data-tab="{{ forloop.index }}">
+                          <p>{{ block_inner.settings.heading | escape }}</p>
+                        </button>
+                      {% endfor %}
+                    </div>
+
+                    {% for block_inner in block.settings.block_list %}
+                      <div class="cust__tab-content {% if forloop.first %} active {% endif %}" data-content="{{ forloop.index }}">
+                        {{ block_inner.settings.content }}
+                      </div>
+                    {% endfor %}
+
+                    <script>
+                      document.addEventListener('DOMContentLoaded', function() {
+                        const tabs = document.querySelectorAll('.block-{{ block.id }} .cust__tab');
+                        const contents = document.querySelectorAll('.block-{{ block.id }} .cust__tab-content');
+
+                        tabs.forEach(tab => {
+                          tab.addEventListener('click', () => {
+                            const tabNumber = tab.getAttribute('data-tab');
+
+                            // Remove active class from all tabs and contents
+                            tabs.forEach(t => t.classList.remove('active'));
+                            contents.forEach(c => c.classList.remove('active'));
+
+                            // Add active class to clicked tab and corresponding content
+                            tab.classList.add('active');
+                            document.querySelector('.block-{{ block.id }} .cust__tab-content[data-content="' + tabNumber + '"]').classList.add('active');
+                          });
+                        });
+                      });
+                    </script>
+                  </div>
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if sticky_atc -%}
+            <div
+              x-show="showStickyATC"
+              x-transition:enter="transition ease-out duration-300"
+              x-transition:enter-start="opacity-0 transform translate-y-2"
+              x-transition:enter-end="opacity-100 transform translate-y-0"
+              x-transition:leave="transition ease-in duration-200"
+              x-transition:leave-start="opacity-100 transform translate-y-0"
+              x-transition:leave-end="opacity-0 transform translate-y-2"
+              class="block fixed bottom-0 left-0 w-full z-[80] bg-scheme-background border-t-scheme-text/20 border-t py-3 px-5"
+            >
+              <div class="flex gap-x-2.5 flex-wrap max-w-7xl mx-auto">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'sticky_add_to_cart' -%}
+                    {% render 'product-sticky-add-to-cart', product: product, product_form_id: product_form_id, block: block %}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      {% render 'card-product-empty' %}
+    {%- endif -%}
+  </div>
+</div>
+
 {%- if is_product_page -%}
   {%- liquid
     if product.selected_or_first_available_variant.featured_media
@@ -2573,7 +2697,7 @@
             {%- endfor -%}
           ]
         }
-      {%- comment -%}Yoast SEO schema control block: end.{%- endcomment -%}
     </script>
+  {%- comment -%}Yoast SEO schema control block: end.{%- endcomment -%}
   {%- endif -%}
 {%- endif -%}
