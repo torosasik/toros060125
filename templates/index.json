@@ -22,7 +22,7 @@
             "slide_link": "shopify://collections/natural-stone",
             "open_new_window_slide": false,
             "subheading": "",
-            "heading": "Marble, Travertine, Onyx and More!",
+            "heading": "",
             "heading_size": 50,
             "heading_tag": "h2",
             "text": "<h2><em>Marble, Travertine, Onyx and More!</em></h2>",
@@ -197,6 +197,7 @@
         "slide_EepcyN",
         "slide_3hKLqk"
       ],
+      "custom_css": [],
       "settings": {
         "show_hero": true,
         "auto_play": true,
