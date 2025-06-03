@@ -550,6 +550,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "travertine",
+            "image_custom_collection": "shopify://shop_images/OT_Collection_Travertine_-_Noce_Shower.jpg",
             "custom_name_collection": "Travertine"
           }
         },
