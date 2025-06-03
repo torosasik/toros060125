@@ -247,7 +247,7 @@
         "@media (min-width: 1024px) {[class*=\"content-text-slide_\"] h2 em, [class*=\"content-text-slide_\"] p {font-size: 2.5rem !important; } .hero-text {font-size: 1.5rem !important; font-weight: bold !important; }}"
       ],
       "settings": {
-        "show_hero": true,
+        "show_hero": false,
         "auto_play": false,
         "change_slides_speed": 5,
         "show_arrow": true,
