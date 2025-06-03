@@ -521,9 +521,12 @@
         "featured_collection_gjdGdR",
         "featured_collection_abtLVN"
       ],
+      "custom_css": [
+        ".collection-item-title p {font-size: 1.5rem; /* make the text larger (adjust as needed) */ font-weight: 700; /* make the text bolder */ color: #1c4070 !important; /* force the new color */}"
+      ],
       "name": "OT: Collection List #2",
       "settings": {
-        "heading": "Collection List",
+        "heading": "",
         "heading_size": 100,
         "heading_tag": "h2",
         "heading_alignment": "center",
