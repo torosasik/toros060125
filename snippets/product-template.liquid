@@ -249,10 +249,12 @@
                       display: none;
                       width: 100%;
                       margin-top: 20px;
-                      border: 1px solid #163155;
-                      border-radius: 8px;
+                      border: 1px solid #e5e7eb;
+                      border-radius: 16px;
                       overflow: hidden;
                       transition: all 0.3s ease;
+                      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+                      background: #fff;
                     }
 
                     .calc_accordion.calc_accordion-open {
@@ -275,245 +277,320 @@
 
                     .tile-calculator-wrapper {
                       background: #fff;
-                      padding: 20px;
+                      padding: 0;
                       position: relative;
                       border: none;
                       max-height: none;
                       margin: 0;
+                      border-radius: 16px;
                     }
 
-                    .accordion-close {
-                      position: absolute;
-                      right: 15px;
-                      top: 15px;
-                      padding: 8px;
-                      font-weight: bold;
-                      cursor: pointer;
-                      background: none;
-                      border: none;
+                    /* Header styling like overage calculator */
+                    .calc_accordion .heading {
+                      background: #0066CC;
+                      padding: 16px 20px;
+                      border-radius: 16px 16px 0 0;
+                      text-align: center;
+                      position: relative;
                       font-size: 20px;
-                      color: #666;
+                      font-weight: bold;
+                      color: #fff;
+                      margin: 0;
+                    }
+
+                    /* Content area styling */
+                    .calc_accordion .tile-calculator-container {
+                      padding: 20px;
+                    }
+
+                    .accordion-close, 
+                    .productInfo-popup-close {
+                      position: absolute;
+                      right: 12px;
+                      top: 12px;
+                      padding: 0;
+                      background: rgba(255, 255, 255, 0.2);
+                      border: none;
+                      font-size: 16px;
+                      color: #fff;
                       width: 32px;
                       height: 32px;
                       display: flex;
                       align-items: center;
                       justify-content: center;
                       border-radius: 50%;
+                      cursor: pointer;
                       transition: all 0.2s ease;
+                      z-index: 10;
                     }
 
-                    .accordion-close:hover {
-                      background: #f5f5f5;
-                      color: #333;
+                    .accordion-close:hover,
+                    .productInfo-popup-close:hover {
+                      background: rgba(255, 255, 255, 0.3);
                     }
 
-                    .input-box {
+                    .productInfo-popup-close svg {
+                      width: 16px;
+                      height: 16px;
+                      stroke: #fff;
+                      stroke-width: 2px;
+                    }
+
+                    /* Input styling to match overage calculator */
+                    .calc_accordion .input-box {
                       text-align: center;
-                      width: 100px;
-                      border: 1px solid #656565;
+                      width: auto;
+                      border: 2px solid #e5e7eb;
                       margin-bottom: 10px;
+                      border-radius: 12px;
+                      background: #f9fafb;
+                      transition: all 0.2s;
+                      min-width: 100px;
                     }
 
-                    .input-box input {
+                    .calc_accordion .input-box:focus-within {
+                      border-color: #0066CC;
+                      background: #fff;
+                      box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1);
+                    }
+
+                    .calc_accordion .input-box input {
                       text-align: center;
                       border: none;
                       margin-bottom: 0px;
-                    }
-
-                    .line-separator {
-                      text-align: center;
-                      margin: 0px 0 30px;
-                      border-bottom: 1px solid;
-                    }
-
-                    span.separator {
-                      background: #fff;
-                      padding: 10px;
-                      position: relative;
-                      top: 11px;
-                      text-transform: uppercase;
-                    }
-
-                    .flex-box {
-                      display: flex;
-                      justify-content: space-evenly;
-                      align-items: center;
-                      position: relative;
-                    }
-                    .btn-calculator {
+                      background: transparent;
+                      padding: 14px 12px;
+                      font-size: 16px;
+                      font-weight: 600;
+                      color: #374151;
                       width: 100%;
-                      background: #143055;
+                      outline: none;
+                    }
+
+                    /* Heading and text colors */
+                    .calc_accordion .calculator-section h4,
+                    .calc_accordion .section-intro h4 {
+                      color: #000;
+                      font-size: 18px;
+                      font-weight: 700;
+                      text-align: center;
+                      margin: 0 0 12px 0;
+                    }
+
+                    .calc_accordion .section-intro p {
+                      color: #374151;
+                      font-size: 14px;
+                      text-align: center;
+                      margin: 0 0 16px 0;
+                    }
+
+                    /* Radio button styling to match overage calculator */
+                    #overage_top, #overage_bottom {
+                      margin-bottom: 16px;
+                    }
+
+                    #overage-selectors, #bottom-overage-selectors {
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 8px;
+                      margin-bottom: 12px;
+                    }
+
+                    #overage-selectors label, #bottom-overage-selectors label {
+                      position: relative;
+                      cursor: pointer;
+                      margin: 0;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      padding: 10px 12px;
+                      border: 2px solid #e5e7eb;
+                      border-radius: 12px;
+                      background: #fff;
+                      color: #000;
+                      font-weight: 600;
+                      font-size: 15px;
+                      transition: all 0.2s;
+                      min-height: 44px;
+                    }
+
+                    #overage-selectors input[type="radio"], 
+                    #bottom-overage-selectors input[type="radio"] {
+                      position: absolute;
+                      opacity: 0;
+                      pointer-events: none;
+                    }
+
+                    #overage-selectors input[type="radio"]:checked + span,
+                    #overage-selectors label:has(input[type="radio"]:checked),
+                    #bottom-overage-selectors input[type="radio"]:checked + span,
+                    #bottom-overage-selectors label:has(input[type="radio"]:checked) {
+                      background: #0066CC !important;
+                      color: #fff !important;
+                      border-color: #0066CC !important;
+                    }
+
+                    #overage-selectors label:hover, 
+                    #bottom-overage-selectors label:hover {
+                      transform: translateY(-1px);
+                      box-shadow: 0 2px 8px rgba(81, 129, 188, 0.15);
+                    }
+
+                    /* Manual input styling */
+                    #top-manual-ovg, #bottom-manual-ovg {
+                      text-align: center;
+                      margin: 12px 0;
+                    }
+
+                    #manualInputField, #manualInputFieldBottom {
+                      border: 2px solid #e5e7eb;
+                      border-radius: 8px;
+                      padding: 8px 12px;
+                      width: 80px;
+                      text-align: center;
+                      font-size: 16px;
+                      font-weight: 600;
+                      outline: none;
+                      background: #fff;
+                    }
+
+                    #manualInputField:focus, #manualInputFieldBottom:focus {
+                      border-color: #0066CC;
+                      background: #fff;
+                    }
+
+                    /* Small text styling */
+                    .calc_accordion .small_text {
+                      display: block;
+                      font-size: 12px;
+                      margin-bottom: 16px;
+                      color: #6b7280;
+                      text-align: center;
+                    }
+
+                    /* Calculate button styling */
+                    .calc_accordion .calculate_btn {
+                      width: 100%;
+                      background: #0066CC;
                       border: none;
-                      padding: 10px;
-                      margin: 20px 0;
+                      border-radius: 12px;
+                      padding: 12px 16px;
+                      margin: 16px 0;
                       color: #fff;
+                      font-weight: 600;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: all 0.2s;
+                      text-decoration: none;
+                      display: block;
+                      text-align: center;
+                      box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+                    }
+
+                    .calc_accordion .calculate_btn:hover {
+                      background: #0052a3;
+                      transform: translateY(-1px);
+                      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+                    }
+
+                    /* Results section styling */
+                    .calc_accordion .footer_outcome {
+                      background: #fff;
+                      border: 2px solid #e5e7eb;
+                      border-radius: 12px;
+                      padding: 16px;
+                      margin: 20px 0 0 0;
+                    }
+
+                    .calc_accordion .footer_outcome .line-separator {
+                      border: none;
+                      margin: 0 0 16px 0;
+                    }
+
+                    .calc_accordion .footer_outcome .separator {
+                      background: transparent;
+                      padding: 0;
+                      position: static;
+                      font-size: 18px;
+                      font-weight: 700;
+                      color: #000;
+                      text-transform: none;
+                    }
+
+                    /* Add to Cart button styling */
+                    .calc_accordion .btn-calculator {
+                      width: 100%;
+                      background: #0066CC;
+                      border: none;
+                      border-radius: 12px;
+                      padding: 12px 16px;
+                      margin: 16px 0;
+                      color: #fff;
+                      font-weight: bold;
+                      font-size: 16px;
+                      cursor: pointer;
+                      transition: all 0.2s;
+                      box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+                    }
+
+                    .calc_accordion .btn-calculator:hover {
+                      background: #0052a3;
+                      transform: translateY(-1px);
+                      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+                    }
+
+                    /* Flex box improvements */
+                    .calc_accordion .flex-box {
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    }
+
+                    .calc_accordion .flex-box .input-box,
+                    .calc_accordion .flex-box .label {
+                      flex: 1;
+                      min-width: 0;
+                    }
+
+                    .calc_accordion .dimension-box {
+                      margin-bottom: 16px;
+                    }
+
+                    .calc_accordion .dimension-box .label {
+                      font-weight: 600;
+                      color: #374151;
+                      margin-bottom: 8px;
+                      display: block;
+                    }
+
+                    /* Input label styling */
+                    .calc_accordion .input-label {
+                      display: block;
+                      font-size: 14px;
+                      color: #000;
+                      margin-top: 6px;
+                      margin-bottom: 4px;
                       font-weight: 600;
                     }
 
-                    .flex-box .input-box,
-                    .flex-box .label {
-                      width: 30%;
-                    }
-
-                    .tile-measuremts {
-                      display: block;
-                      font-size: 10px;
-                      margin-top: 10px;
-                      margin-bottom: 10px;
-                    }
-
-                    .tile-measuremts p {
-                      margin: 0;
-                    }
-
-                    .box-half {
-                      width: 49%!important;
-                    }
-
-                    .full-half {
-                      width: 100%!important;
-                    }
-
-                    label.quantity-selector {
-                      display: none!important;
-                    }
-
-                    .input_boxes .js-qty {
-                      max-width: 100%;
-                    }
-
-                    .input_boxes .js--add,
-                    .input_boxes .js--minus{
-                      border: none!important;
-                    }
-
-                    .box_price {
-                      font-size: 34px;
-                      font-weight: 900;
-                      color: #000;
-                    }
-
-                    .square_price {
-                      font-weight: 900;
-                      font-size: 18px;
-                    }
-
-                    .box_area{
-                      font-size: 12px;
-                      margin-left: 6px;
-                      font-weight: 100;
-                      color: #5c5c5c;
-                    }
-
-                    .smaller_text {
-                      font-size: 13px;
-                      font-weight: 100;
-                    }
-
-                    .calc_prices li {
-                      margin: 0;
-                    }
-
-                    #overage {
-                      width: 100%;
-                      max-width: 100%!important;
-                    }
-
-                    .heading {
-                      font-weight: 900;
-                      font-size: 24px;
-                      color: #143055 ;
-                    }
-
-                    .calculator-section h4,
-                    .section-intro h4 {
-                      color: #143055;
-                    }
-
-                    .small_text {
-                      display: block;
-                      font-size: 12px;
-                      margin-bottom: 20px;
-                    }
-
-                    #overage {
-                      margin-bottom: 5px;
-                    }
-
-                    .product-item--price .h1 {
-                      display: flex;
-                      margin-bottom: 15px;
-                      flex-direction: row;
-                      flex-wrap: wrap;
-                    }
-
-                    .product_page_total {
-                      margin-top: 5px;
-                      display: block;
-                    }
-
-                    .container_titles {
-                      color: #143055;
-                    }
-
-                    #total_square {
-                     margin-left: 5px;
-                    }
-
-                    .calculate_btn {
-                      width: 50%;
-                      margin: 0 auto;
-                      display: block;
+                    /* Line separator improvements */
+                    .calc_accordion .line-separator {
                       text-align: center;
-                      margin-top: 10px;
-                      background: #143055;
-                      color: #fff;
-                      padding: 5px;
-                      font-weight: 700;
-                      cursor: pointer;
+                      margin: 24px 0;
+                      border-bottom: 1px solid #e5e7eb;
+                      position: relative;
                     }
 
-                    #calculator-footage-section,
-                    #calculator-dimensions-section{
-                      transition: 0.4s;
-                    }
-
-                    .opacity_low {
-                      opacity: .5;
-                    }
-
-                    .tile-calculator-wrapper{
-                      scroll-behavior: smooth;
-                    }
-                    .calculator_wrapper .input_boxes input{
-                      width:100%;
-                    }
-                    .calculator_wrapper .input_boxes input {
-                      width: 100%;
-                      padding: 10px;
-                    }
-                    .calculator_wrapper .input_boxes {
-                      text-align: center;
-                      border: 1px solid #f5f5f5;
-                      width: 100%;
-                      max-width: 148px;
-                      padding: 1px;
-                      margin-top: 10px;
-                    }
-                    #overage-selectors, 
-                    #bottom-overage-selectors {
-                        display: flex;
-                        flex-wrap: wrap;
-                        column-gap: 2rem;
-                        row-gap: .5rem;
-                        margin: .5rem 0;
-                    }
-                    #manualInputField,
-                    #manualInputFieldBottom {
-                        border: 1px solid #CCC;
-                        padding: 4px;
-                        width: 100px;
-                        margin: 0 auto .5rem auto;
+                    .calc_accordion .separator {
+                      background: #fff;
+                      padding: 8px 16px;
+                      position: relative;
+                      top: 11px;
+                      color: #6b7280;
+                      font-weight: 600;
+                      font-size: 14px;
                     }
                   </style>
                   {% if product.tags contains 'Tile_calculator' %}
@@ -635,16 +712,20 @@
                           <div id="overage_top">
                             <div id="overage-selectors">
                             <label>
-                              <input type="radio" name="properties[TOP-OVERAGE]" value="0.10" checked> 10%
+                              <input type="radio" name="properties[TOP-OVERAGE]" value="0.10" checked>
+                              <span>10%</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[TOP-OVERAGE]" value="0.15"> 15%
+                              <input type="radio" name="properties[TOP-OVERAGE]" value="0.15">
+                              <span>15%</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[TOP-OVERAGE]" value="manual" id="manualInputRadio"> Manual Input
+                              <input type="radio" name="properties[TOP-OVERAGE]" value="manual" id="manualInputRadio">
+                              <span>Manual Input</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[TOP-OVERAGE]" value="no_overage"> No Overage
+                              <input type="radio" name="properties[TOP-OVERAGE]" value="no_overage">
+                              <span>No Overage</span>
                             </label>
                             </div>
                             <div id="top-manual-ovg" style="display: none;">
@@ -732,16 +813,20 @@
                           <div id="overage_bottom">
                             <div id="bottom-overage-selectors">
                             <label>
-                              <input type="radio" name="properties[BTM-OVERAGE]" value="0.10" checked> 10%
+                              <input type="radio" name="properties[BTM-OVERAGE]" value="0.10" checked>
+                              <span>10%</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[BTM-OVERAGE]" value="0.15"> 15%
+                              <input type="radio" name="properties[BTM-OVERAGE]" value="0.15">
+                              <span>15%</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[BTM-OVERAGE]" value="manual" id="bottom-manualInputRadio"> Manual Input
+                              <input type="radio" name="properties[BTM-OVERAGE]" value="manual" id="bottom-manualInputRadio">
+                              <span>Manual Input</span>
                             </label>
                             <label>
-                              <input type="radio" name="properties[BTM-OVERAGE]" value="no_overage"> No Overage
+                              <input type="radio" name="properties[BTM-OVERAGE]" value="no_overage">
+                              <span>No Overage</span>
                             </label>
                             </div>
                             <div id="bottom-manual-ovg" style="display: none;">
