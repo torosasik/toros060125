@@ -198,7 +198,7 @@
         "slide_3hKLqk"
       ],
       "custom_css": [
-        "[class*=\"content-text-slide_\"] h2 em,[class*=\"content-text-slide_\"] p {font-size: 2.5rem !important; color: #1c4070 !important; font-style: italic !important; font-weight: bold !important; text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff !important; -webkit-text-stroke: 0.5px #fff !important;}"
+        "[class*=\"content-text-slide_\"] h2 em,[class*=\"content-text-slide_\"] p {font-size: 2.5rem !important; color: #1c4070 !important; font-style: italic !important; font-weight: bold !important; /* Slimmer white outline via sub-pixel shadows */ text-shadow: -0.5px -0.5px 0 #fff, 0.5px -0.5px 0 #fff, -0.5px 0.5px 0 #fff, 0.5px 0.5px 0 #fff !important; /* Slimmer stroke */ -webkit-text-stroke: 0.3px #fff !important;}"
       ],
       "settings": {
         "show_hero": true,
