@@ -197,7 +197,9 @@
         "slide_EepcyN",
         "slide_3hKLqk"
       ],
-      "custom_css": [],
+      "custom_css": [
+        ".content-text-slide_kHLmMh h2 em {font-size: 2.5rem !important;}"
+      ],
       "settings": {
         "show_hero": true,
         "auto_play": false,
