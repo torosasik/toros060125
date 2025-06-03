@@ -1744,10 +1744,10 @@
       var solution = calculator_footage * (1 + overage);
       var solution_rounded = parseFloat(solution.toFixed(2));
       
-      // Calculate boxes needed
+      // Calculate boxes needed - use Math.round instead of up() for overage calculations
       var box_output = solution / box_dimensions;
       var amount_of_boxes = box_output;
-      output_boxes = up(amount_of_boxes, 0);
+      output_boxes = Math.round(amount_of_boxes);
 
       {% if product.variants.first.inventory_management == 'shopify' %}
         if (output_boxes > {{ max_qty }}) {
