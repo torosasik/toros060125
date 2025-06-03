@@ -767,6 +767,57 @@
                     }
                   </style>
                   {% if product.tags contains 'Tile_calculator' %}
+                    <!-- Accordion styles -->
+                    <style>
+                      .tile-calculator-accordion {
+                        margin-top: 15px;
+                        border: 2px solid #e5e7eb;
+                        border-radius: 16px;
+                        overflow: hidden;
+                        transition: all 0.4s ease;
+                        background: #fff;
+                        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+                      }
+                      .tile-calculator-accordion.show {
+                        display: block !important;
+                        animation: slideDown 0.4s ease;
+                      }
+                      .tile-calculator-accordion.hide {
+                        animation: slideUp 0.4s ease;
+                      }
+                      @keyframes slideDown {
+                        from { opacity: 0; transform: translateY(-10px); }
+                        to { opacity: 1; transform: translateY(0); }
+                      }
+                      @keyframes slideUp {
+                        from { opacity: 1; transform: translateY(0); }
+                        to { opacity: 0; transform: translateY(-10px); }
+                      }
+                      .open_calc_accordion {
+                        color: #0066CC;
+                        text-decoration: underline;
+                        cursor: pointer;
+                        font-weight: 600;
+                        transition: color 0.2s;
+                      }
+                      .open_calc_accordion:hover {
+                        color: #0052a3;
+                        text-decoration: none;
+                      }
+                      .tile-calculator-accordion .tile-calculator-wrapper {
+                        position: static;
+                        overflow: visible;
+                        max-height: none;
+                        width: 100%;
+                        max-width: none;
+                        border-radius: 0;
+                        box-shadow: none;
+                        margin: 0;
+                        padding-bottom: 0;
+                        background: transparent;
+                      }
+                    </style>
+                    
                     <div class="calculator_container">
                       <span class="calc_title">Quantity <a class="open_calc_accordion">How much do I need?</a></span>
                       
