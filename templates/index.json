@@ -543,6 +543,7 @@
           "type": "featured_collection",
           "settings": {
             "collection": "marble",
+            "image_custom_collection": "shopify://shop_images/OT_Collection_Marble_-_Carrara_Bathroom_Sink.jpg",
             "custom_name_collection": "Marble"
           }
         },
