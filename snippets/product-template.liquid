@@ -1020,10 +1020,33 @@
                             <a href="#bottom_pop_up" class="calculate_btn" id="calculate_bottom">Calculate</a>
                           </div>
                           <div class="footer_outcome">
-                            <div class="calculator-section line-separator">
+                            <div class="tile-results">
+                              <div class="tile-results-title">Calculation Results</div>
+                              
+                              <!-- Custom Results Display -->
+                              <div class="tile-result-row">
+                                <span class="tile-result-label">Area Needed:</span>
+                                <span class="tile-result-value" id="tile-area-display">0 Sq. Ft.</span>
+                              </div>
+                              <div class="tile-result-row">
+                                <span class="tile-result-label">Total Coverage:</span>
+                                <span class="tile-result-value" id="tile-coverage-display">0 Sq. Ft.</span>
+                              </div>
+                              <div class="tile-result-row">
+                                <span class="tile-result-label">Boxes Needed:</span>
+                                <span class="tile-result-value" id="tile-boxes-display">0</span>
+                              </div>
+                              <div class="tile-result-row">
+                                <span class="tile-result-label">Total Price:</span>
+                                <span class="tile-result-value" id="tile-price-display">$0.00</span>
+                              </div>
+                            </div>
+                            
+                            <!-- Hidden Original Results for Functionality -->
+                            <div class="calculator-section line-separator" style="display: none;">
                               <span class="separator">Outcome</span>
                             </div>
-                            <div class="flex-box">
+                            <div class="flex-box" style="display: none;">
                               <div class="input-box box-half" novalidate="novalidate">
                                 <input
                                   type="text"
@@ -1045,7 +1068,7 @@
                                 <span class="input-label">Total Coverage Sq. Ft.</span>
                               </div>
                             </div>
-                            <div class="flex-box">
+                            <div class="flex-box" style="display: none;">
                               <div class="input-box box-half" novalidate="novalidate">
                                 <input
                                   type="text"
@@ -1092,6 +1115,62 @@
 
                   {% if product.tags contains "overage-popup-v3" %}
                   <style>
+                    /* Tile Results Section - matching overage design */
+                    .tile-results {
+                        background: #fff;
+                        border: 2px solid #e5e7eb;
+                        border-radius: 12px;
+                        padding: 12px 16px;
+                        margin: 18px 0 0 0;
+                    }
+                    .tile-results-title {
+                        font-size: 18px;
+                        font-weight: 700;
+                        color: #000;
+                        text-align: center;
+                        margin: 0 0 12px 0;
+                    }
+                    .tile-result-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 4px 0;
+                    }
+                    .tile-result-row:last-child {
+                        padding-bottom: 4px;
+                        margin-bottom: 0;
+                        border-bottom: none;
+                    }
+                    .tile-result-label {
+                        font-size: 17px;
+                        font-weight: 500;
+                        color: #000;
+                    }
+                    .tile-result-value {
+                        font-size: 17px;
+                        font-weight: 700;
+                        color: #dc2626;
+                    }
+                    
+                    /* Mobile adjustments for tile results */
+                    @media (max-height: 667px) and (max-width: 480px) {
+                        .tile-results {
+                            padding: 8px 12px;
+                            margin: 12px 0 0 0;
+                        }
+                        .tile-results-title {
+                            font-size: 16px;
+                            margin: 0 0 8px 0;
+                        }
+                        .tile-result-row {
+                            padding: 2px 0;
+                        }
+                        .tile-result-label,
+                        .tile-result-value {
+                            font-size: 15px;
+                        }
+                    }
+                    
                     #ovg-popup {
                       position: fixed;
                       top: 0;
@@ -1988,6 +2067,9 @@
       if ($('#overage-submit').length > 0) {
         $('#overage-submit').remove();
       }
+      
+      // Update tile calculator custom display
+      updateTileCustomResults();
     }
 
     function calculateBottom(){
@@ -2070,6 +2152,9 @@
       if ($('#overage-submit').length > 0) {
         $('#overage-submit').remove();
       }
+      
+      // Update tile calculator custom display
+      updateTileCustomResults();
     }
 
     function calculateOverage(){
@@ -2436,6 +2521,36 @@
   // Also update when any of the original result fields change
   $(document).on('change input', '#ovg-solution, #ovg-total_coverage, #ovg-boxes, #ovg-total_cost', function() {
     updateCustomResults();
+  });
+  
+  // Function to update tile calculator custom results
+  function updateTileCustomResults() {
+    // Wait a bit for the original calculation to complete
+    setTimeout(function() {
+      // Get values from hidden original results
+      const areaValue = $('#solution').val() || '0';
+      const coverageValue = $('#total_coverage').val() || '0';
+      const boxesValue = $('#boxes').val() || '0';
+      const priceValue = $('#total_cost').val() || '$0.00';
+      
+      // Update custom display elements
+      $('#tile-area-display').text(areaValue + ' Sq. Ft.');
+      $('#tile-coverage-display').text(coverageValue + ' Sq. Ft.');
+      $('#tile-boxes-display').text(boxesValue);
+      $('#tile-price-display').text(priceValue);
+      
+      console.log('Updated tile custom results:', {
+        area: areaValue,
+        coverage: coverageValue,
+        boxes: boxesValue,
+        price: priceValue
+      });
+    }, 100);
+  }
+
+  // Also update tile results when any of the original result fields change
+  $(document).on('change input', '#solution, #total_coverage, #boxes, #total_cost', function() {
+    updateTileCustomResults();
   });
 </script>
 
