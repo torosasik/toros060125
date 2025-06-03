@@ -1973,8 +1973,23 @@
         var container = $("#ovg-popup-content");
         if (!container.is(event.target) && !container.has(event.target).length) {
           console.log("Closing OVG pop-up.");
-          $("#ovg-popup").removeClass("ovg-popup-open");
-          $(this).parents('html').removeClass('overflow-pop-hidden');
+          
+          // Act like Add to Cart button when clicking outside (same as close button)
+          if (output_boxes > 0) {
+              {% if product.variants.first.inventory_management == 'shopify' %}
+                if (output_boxes > {{ max_qty }}) {
+                    alert("Only {{ max_qty }} available");
+                    return;
+                }
+              {% endif %}
+              $("#ovg-popup").removeClass("ovg-popup-open");
+              $(this).parents('html').removeClass('overflow-pop-hidden');
+              $('#x-atc-button-{{ section.id }}').click();
+          } else {
+              // If no calculation, just close
+              $("#ovg-popup").removeClass("ovg-popup-open");
+              $(this).parents('html').removeClass('overflow-pop-hidden');
+          }
         }
       });
 
