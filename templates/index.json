@@ -220,7 +220,7 @@
         "padding_bottom": 0,
         "full_width_mobile": true,
         "rounded_corner_image_mobile": false,
-        "mobile_height": "400",
+        "mobile_height": "500",
         "padding_top_mobile": 0,
         "padding_bottom_mobile": 0
       }
