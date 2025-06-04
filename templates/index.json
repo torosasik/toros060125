@@ -536,7 +536,7 @@
         "heading_alignment": "center",
         "show_view_all": false,
         "background_color_light": "",
-        "image_ratio": "square",
+        "image_ratio": "landscape",
         "is_lazyload": false,
         "edges_type": "rounded_corners",
         "title_size": 120,
