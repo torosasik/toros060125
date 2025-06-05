@@ -4779,108 +4779,80 @@
 </div>
 {%- comment -%} INLINE OVERAGE CALCULATOR END {%- endcomment -%}
 
-<script defer="defer">
-  $(document).ready(function() {
-    // Inline Overage Calculator Logic
-    var output_boxes = 0;
-    var overageSet = false;
-
-    function updateCustomResults() {
-      setTimeout(function() {
-        const overageValue = $('#ovg-solution').val() || '0';
-        const totalValue = $('#ovg-total_coverage').val() || '0';
-        const boxesValue = $('#ovg-boxes').val() || '0';
-        const priceValue = $('#ovg-total_cost').val() || '$0.00';
-        $('#ovg-overage-display').text(overageValue + ' Sq. Ft.');
-        $('#ovg-total-display').text(totalValue + ' Sq. Ft.');
-        $('#ovg-boxes-display').text(boxesValue);
-        $('#ovg-price-display').text(priceValue);
-      }, 100);
-    }
-
-    // Overage selector logic
-    $('#ovg-overage-selectors input[name="properties[OVERAGE]"]').on('change', function() {
-      $('.ovg-info-text').hide();
-      if (this.value === 'manual') {
-        $('#ovg-manual-input-wrapper').show();
-        $('#ovg-info-manual').show();
-        $('#manualInputFieldOVG').focus();
-      } else {
-        $('#ovg-manual-input-wrapper').hide();
-        if (this.value === '0.10') {
-          $('#ovg-info-10').show();
-        } else if (this.value === '0.15') {
-          $('#ovg-info-15').show();
-        } else if (this.value === 'no_overage') {
-          $('#ovg-info-no').show();
-        }
-      }
-      autoCalculateOverage();
-    });
-
-    // Manual input change
-    $('#manualInputFieldOVG').on('input change', function() {
-      autoCalculateOverage();
-    });
-
-    // Square footage input change
-    var footageInputTimer;
-    $('#ovg-calculator-footage').on('input', function() {
-      clearTimeout(footageInputTimer);
-      footageInputTimer = setTimeout(autoCalculateOverage, 500);
-    });
-
-    function autoCalculateOverage() {
-      const footageInput = $('#ovg-calculator-footage');
-      if (footageInput.length && footageInput.val() && parseFloat(footageInput.val()) > 0) {
-        calculateOverage();
-      }
-    }
-
-    function calculateOverage() {
-      var tile_size = {{tile_size}};
-      var tiles_per_box = {{tiles_per_box}};
-      var box_dimensions = {{ box_area_clean }};
-      var calculator_footage = Number($('#ovg-calculator-footage').val() || 0);
-      var selectedOverage = $('#ovg-overage-selectors input[name="properties[OVERAGE]"]:checked').val();
-      var manualOverage = $('#manualInputFieldOVG').val();
-      var overage = 0;
-      if (selectedOverage === 'manual') {
-        overage = manualOverage ? parseFloat(manualOverage) / 100 : 0;
-      } else if (selectedOverage === 'no_overage') {
-        overage = 0;
-      } else {
-        overage = parseFloat(selectedOverage);
-      }
-      var overage_amount = calculator_footage * overage;
-      var overage_amount_rounded = parseFloat(overage_amount.toFixed(2));
-      var solution = calculator_footage * (1 + overage);
-      var solution_rounded = parseFloat(solution.toFixed(2));
-      var box_output = solution / box_dimensions;
-      var amount_of_boxes = box_output;
-      output_boxes = Math.round(amount_of_boxes);
-      var product_price = {{ product.price | divided_by: 100.00 }};
-      var total_cost_avg = product_price * output_boxes;
-      var rounded_total_avg = Math.ceil(total_cost_avg * 100) / 100;
-      var total_coverage = output_boxes * box_dimensions;
-      var total_coverage_rounded = parseFloat(total_coverage.toFixed(2));
-      // Update custom display elements
-      $('#ovg-overage-display').text(overage_amount_rounded.toFixed(2) + ' Sq. Ft.');
-      $('#ovg-total-display').text(solution_rounded.toFixed(2) + ' Sq. Ft.');
-      $('#ovg-boxes-display').text(output_boxes);
-      $('#ovg-price-display').text('$' + rounded_total_avg.toFixed(2));
-    }
-
-    // Add to Cart button
-    $('#ovg-addToquanitity').on('click', function() {
-      // You may need to trigger the actual Shopify Add to Cart logic here
-      // For now, just alert for demonstration
-      alert('Add to Cart: ' + $('#ovg-boxes-display').text() + ' boxes');
-    });
-
-    // Initial state
-    $('#ovg-info-10').show();
-    $('#ovg-manual-input-wrapper').hide();
-    updateCustomResults();
-  });
-</script>
+{%- if product.tags contains 'overage v2' -%}
+{%- comment -%} INLINE OVERAGE CALCULATOR START {%- endcomment -%}
+<div class="ovg-inline-calculator" style="max-width: 420px; margin: 0 0 24px 0;">
+  <div class="ovg-header">
+    <div class="heading" style="margin-bottom: 0.5rem;">Tile/Overage Calculator</div>
+    <div class="section-intro" style="margin-bottom: 1rem;">
+      <p style="font-size: 14px; color: #555;">Add overage for cuts, waste, breaks, and repairs</p>
+    </div>
+  </div>
+  <div class="ovg-content">
+    <div class="ovg-input-section">
+      <div class="input-wrapper">
+        <div class="input-box">
+          <input type="text" name="ovg-calculator-footage" id="ovg-calculator-footage" class="required-entry validate-digits" placeholder="0">
+          <span class="input-label">Square Feet</span>
+        </div>
+      </div>
+    </div>
+    <div class="ovg-overage-section">
+      <h4 style="margin-bottom: 0.5rem;">Overage Amount</h4>
+      <div id="ovg-overage">
+        <div id="ovg-overage-selectors" style="display: flex; gap: 8px; margin-bottom: 8px;">
+          <label style="flex:1;">
+            <input type="radio" name="properties[OVERAGE]" value="0.10" checked>
+            <span>10%</span>
+          </label>
+          <label style="flex:1;">
+            <input type="radio" name="properties[OVERAGE]" value="0.15">
+            <span>15%</span>
+          </label>
+          <label style="flex:1;">
+            <input type="radio" name="properties[OVERAGE]" value="manual" id="ovg-manualInputRadio">
+            <span>Manual Input</span>
+          </label>
+          <label style="flex:1;">
+            <input type="radio" name="properties[OVERAGE]" value="no_overage">
+            <span>No Overage</span>
+          </label>
+        </div>
+      </div>
+      <div class="ovg-info-section" style="margin-bottom: 8px;">
+        <div class="ovg-info-text" id="ovg-info-10" style="display: block; color: #0066CC; font-size: 13px;">Recommended minimum</div>
+        <div class="ovg-info-text" id="ovg-info-15" style="display: none; color: #0066CC; font-size: 13px;">Extra coverage for complex cuts</div>
+        <div class="ovg-info-text" id="ovg-info-manual" style="display: none; color: #0066CC; font-size: 13px;">Custom percentage</div>
+        <div class="ovg-info-text" id="ovg-info-no" style="display: none; color: #dc2626; font-size: 13px;">Not recommended - no extra material</div>
+      </div>
+      <div class="ovg-manual-section" style="margin-bottom: 8px;">
+        <div class="ovg-manual-input-wrapper" id="ovg-manual-input-wrapper" style="display: none; align-items: center; gap: 8px;">
+          <input type="number" id="manualInputFieldOVG" name="properties[OVERAGE_MANUAL]" value="20" step="1" min="0" style="width: 80px;">
+          <span class="ovg-percent-symbol">%</span>
+        </div>
+      </div>
+    </div>
+    <div class="ovg-results footer_outcome" style="background: #fff; border: 2px solid #e5e7eb; border-radius: 12px; padding: 12px 16px; margin: 18px 0 0 0;">
+      <div class="ovg-results-title" style="font-size: 18px; font-weight: 700; color: #000; text-align: center; margin: 0 0 12px 0;">Calculation Results</div>
+      <div class="ovg-result-row" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+        <span class="ovg-result-label">Overage:</span>
+        <span class="ovg-result-value" id="ovg-overage-display" style="color: #dc2626;">0 Sq. Ft.</span>
+      </div>
+      <div class="ovg-result-row" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+        <span class="ovg-result-label">Total:</span>
+        <span class="ovg-result-value" id="ovg-total-display" style="color: #dc2626;">0 Sq. Ft.</span>
+      </div>
+      <div class="ovg-result-row" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+        <span class="ovg-result-label">Boxes Needed:</span>
+        <span class="ovg-result-value" id="ovg-boxes-display" style="color: #dc2626;">0</span>
+      </div>
+      <div class="ovg-result-row" style="display: flex; justify-content: space-between; align-items: center; padding: 4px 0;">
+        <span class="ovg-result-label">Total Price:</span>
+        <span class="ovg-result-value" id="ovg-price-display" style="color: #dc2626;">$0.00</span>
+      </div>
+    </div>
+    <button id="ovg-addToquanitity" class="ovg-add-to-cart" style="background: #0066CC; color: #fff; border: none; border-radius: 12px; padding: 12px 16px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; margin: 16px 0 0 0;">Add To Cart</button>
+  </div>
+</div>
+{%- comment -%} INLINE OVERAGE CALCULATOR END {%- endcomment -%}
+{%- endif -%}
