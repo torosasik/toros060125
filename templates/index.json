@@ -149,6 +149,7 @@
         },
         "slide_JKjAB4": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Clearance_Banner_photopea_webp_resized_under_25_MP.webp",
             "overlay_opacity": 0,
