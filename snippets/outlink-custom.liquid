@@ -1,4 +1,4 @@
-<script type="text/javascript">
+ <script type="text/javascript">
 
              document.addEventListener('DOMContentLoaded', function(event) {
 
@@ -575,6 +575,13 @@ updateOutLinkStats(shopifyid,variantid,outlink_url,'{{request.page_type}}',18399
             }
 
             if(optionMap.length == 0){
+                $(".variations:first .product-form__input input:checked").each(function(key) {
+                        optionMap[key] = $(this).val();
+        
+                });
+            }
+
+            if(optionMap.length == 0){
                 $(".product-form__input input[type='radio']:checked").each(function(key) {
                        optionMap[key] = $(this).val();
 
@@ -670,7 +677,14 @@ updateOutLinkStats(shopifyid,variantid,outlink_url,'{{request.page_type}}',18399
                           optionMap[key] = $(this).val();
         
                 });
-             }
+            }
+
+            if(optionMap.length == 0){
+                $(".variations:first .product-form__input input:checked").each(function(key) {
+                        optionMap[key] = $(this).val();
+        
+                });
+            }
 
             if(optionMap.length == 0){
                 $(".variant-picker__swatches input:checked").each(function(key) {
