@@ -106,6 +106,7 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/Untitled_design.png",
+            "image_mobile": "shopify://shop_images/Porcelain_Hero_mobile.jpg",
             "overlay_opacity": 0,
             "image_overlay_color": "#202020",
             "slide_link": "",
